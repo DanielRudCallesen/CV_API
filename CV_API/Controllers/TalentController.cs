@@ -12,8 +12,7 @@ namespace CV_API.Controllers
         public ActionResult<IEnumerable<Talent>> GetAll() => Ok(store.GetTalents());
 
         [HttpGet("/talent/{id}")]
-        public ActionResult<Talent> GetById(string id) => Guid.TryParse(id, out var guid ) ? Ok(store.GetDocuments(guid)) : NotFound();
-
+        public ActionResult<Talent> GetById(string id) => Guid.TryParse(id, out var guid) && store.GetTalent(guid) is { } t ? Ok(t) : NotFound();
         [HttpGet("/talent/{id}/documents")]
         public ActionResult<IEnumerable<Document>> GetDocuments(string id) => Guid.TryParse(id, out var guid) ? Ok(store.GetDocuments(guid)) : NotFound();
 
