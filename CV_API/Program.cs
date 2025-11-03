@@ -1,3 +1,6 @@
+using CV_API.Interfaces;
+using CV_API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,9 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Talent API",
+        Version = "1.0.0"
+    });
+    c.MapType<Uri>(() => new Microsoft.OpenApi.Models.OpenApiSchema { Type = "string", Format = "uri" });
+});
 
 builder.Services.Configure<CV_API.Configuration.TalentStoreOptions>(builder.Configuration.GetSection("TalentStore"));
+builder.Services.AddSingleton<ITalentStore, InMemoryTalentStore>();
 
 var app = builder.Build();
 
