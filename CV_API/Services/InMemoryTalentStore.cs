@@ -1,4 +1,5 @@
-﻿using CV_API.Interfaces;
+﻿using CV_API.Configuration;
+using CV_API.Interfaces;
 using CV_API.Models;
 using Microsoft.Extensions.Options;
 using System.Collections.Immutable;
