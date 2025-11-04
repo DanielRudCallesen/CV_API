@@ -23,12 +23,10 @@ builder.Services.AddSingleton<ITalentStore, InMemoryTalentStore>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Talent API v1"));
+
 
 app.UseHttpsRedirection();
 
